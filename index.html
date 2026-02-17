@@ -1,0 +1,26 @@
+// School Hub - Terminal Version 1.0
+const schoolData = {
+    announcements: [
+        { id: 1, msg: "Mid-term results are out!", date: "Feb 18" },
+        { id: 2, msg: "Football finals this Friday @ 4PM", date: "Feb 20" }
+    ],
+    pastPapers: ["Mathematics_2025.pdf", "Physics_2024.pdf", "History_Unit1.pdf"],
+    events: ["Science Fair - March 5", "Parent-Teacher Meeting - March 12"]
+};
+
+function displayDashboard() {
+    console.log("=== 🏫 SCHOOL HUB DASHBOARD ===");
+    
+    console.log("\n📢 ANNOUNCEMENTS:");
+    schoolData.announcements.forEach(a => console.log(`- [${a.date}] ${a.msg}`));
+
+    console.log("\n📚 AVAILABLE PAST PAPERS:");
+    schoolData.pastPapers.forEach(p => console.log(`- ${p}`));
+
+    console.log("\n📅 UPCOMING EVENTS:");
+    schoolData.events.forEach(e => console.log(`- ${e}`));
+    
+    console.log("\n===============================");
+}
+
+displayDashboard();
