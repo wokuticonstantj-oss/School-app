@@ -1,26 +1,90 @@
-// School Hub - Terminal Version 1.0
-const schoolData = {
-    announcements: [
-        { id: 1, msg: "Mid-term results are out!", date: "Feb 18" },
-        { id: 2, msg: "Football finals this Friday @ 4PM", date: "Feb 20" }
-    ],
-    pastPapers: ["Mathematics_2025.pdf", "Physics_2024.pdf", "History_Unit1.pdf"],
-    events: ["Science Fair - March 5", "Parent-Teacher Meeting - March 12"]
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolOS - Multi-Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-admin"> <div class="app-shell">
+        <aside class="sidebar">
+            <div class="logo">🏫 SchoolOS</div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">📊 Dashboard</a>
+                
+                <div class="role-section admin-only">
+                    <p class="menu-label">Admin Tools</p>
+                    <a href="#" class="nav-item">👥 Manage Users</a>
+                    <a href="#" class="nav-item">💰 Finance</a>
+                </div>
 
-function displayDashboard() {
-    console.log("=== 🏫 SCHOOL HUB DASHBOARD ===");
-    
-    console.log("\n📢 ANNOUNCEMENTS:");
-    schoolData.announcements.forEach(a => console.log(`- [${a.date}] ${a.msg}`));
+                <div class="role-section teacher-only">
+                    <p class="menu-label">Classroom</p>
+                    <a href="#" class="nav-item">📝 Attendance</a>
+                    <a href="#" class="nav-item">📚 Lesson Plans</a>
+                </div>
 
-    console.log("\n📚 AVAILABLE PAST PAPERS:");
-    schoolData.pastPapers.forEach(p => console.log(`- ${p}`));
+                <div class="role-section student-only">
+                    <p class="menu-label">Learning</p>
+                    <a href="#" class="nav-item">📖 My Courses</a>
+                    <a href="#" class="nav-item">📅 Timetable</a>
+                </div>
+            </nav>
+        </aside>
 
-    console.log("\n📅 UPCOMING EVENTS:");
-    schoolData.events.forEach(e => console.log(`- ${e}`));
-    
-    console.log("\n===============================");
-}
+        <main class="content">
+            <header class="top-bar">
+                <h2 id="page-title">Admin Dashboard</h2>
+                
+                <div class="role-switcher">
+                    <span>Switch View:</span>
+                    <button onclick="switchPortal('admin')">Admin</button>
+                    <button onclick="switchPortal('teacher')">Teacher</button>
+                    <button onclick="switchPortal('student')">Student</button>
+                    <button onclick="switchPortal('parent')">Parent</button>
+                </div>
 
-displayDashboard();
+                <div class="user-pill" id="user-display">Admin User</div>
+            </header>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3 id="stat-1-label">Total Students</h3>
+                    <p id="stat-1-value">1,200</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="stat-2-label">Active Classes</h3>
+                    <p id="stat-2-value">45</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function switchPortal(role) {
+            // 1. Change the Body Class (This triggers the CSS Magic colors)
+            document.body.className = 'theme-' + role;
+
+            // 2. Update the Text Headers
+            const title = document.getElementById('page-title');
+            const userPill = document.getElementById('user-display');
+            
+            title.innerText = role.charAt(0).toUpperCase() + role.slice(1) + " Dashboard";
+            userPill.innerText = role.charAt(0).toUpperCase() + role.slice(1) + " User";
+
+            // 3. Simple Logic to show how data might change per role
+            if(role === 'student') {
+                document.getElementById('stat-1-label').innerText = "GPA";
+                document.getElementById('stat-1-value').innerText = "3.8";
+                document.getElementById('stat-2-label').innerText = "Assignments Due";
+                document.getElementById('stat-2-value').innerText = "4";
+            } else if(role === 'admin') {
+                document.getElementById('stat-1-label').innerText = "Total Students";
+                document.getElementById('stat-1-value').innerText = "1,200";
+                document.getElementById('stat-2-label').innerText = "Active Classes";
+                document.getElementById('stat-2-value').innerText = "45";
+            }
+        }
+    </script>
+</body>
+</html>
