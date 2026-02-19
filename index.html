@@ -1,90 +1,94 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SchoolOS - Multi-Portal</title>
+    <title>Bulanga Progressive SS - Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="theme-admin"> <div class="app-shell">
+<body class="theme-admin">
+
+    <div class="app-shell">
         <aside class="sidebar">
             <div class="logo">🏫 SchoolOS</div>
             <nav class="nav-menu">
                 <a href="#" class="nav-item active">📊 Dashboard</a>
                 
                 <div class="role-section admin-only">
-                    <p class="menu-label">Admin Tools</p>
+                    <p class="menu-label">ADMIN TOOLS</p>
                     <a href="#" class="nav-item">👥 Manage Users</a>
                     <a href="#" class="nav-item">💰 Finance</a>
+                    <a href="#" class="nav-item">⚙️ Settings</a>
                 </div>
 
                 <div class="role-section teacher-only">
-                    <p class="menu-label">Classroom</p>
+                    <p class="menu-label">CLASSROOM</p>
                     <a href="#" class="nav-item">📝 Attendance</a>
                     <a href="#" class="nav-item">📚 Lesson Plans</a>
+                    <a href="#" class="nav-item">✍️ Grading</a>
                 </div>
 
                 <div class="role-section student-only">
-                    <p class="menu-label">Learning</p>
+                    <p class="menu-label">LEARNING</p>
                     <a href="#" class="nav-item">📖 My Courses</a>
                     <a href="#" class="nav-item">📅 Timetable</a>
+                    <a href="#" class="nav-item">🏆 Results</a>
                 </div>
             </nav>
         </aside>
 
         <main class="content">
             <header class="top-bar">
-                <h2 id="page-title">Admin Dashboard</h2>
+                <div>
+                    <h2 id="page-title">Admin Dashboard</h2>
+                    <p id="school-name">Bulanga Progressive Secondary School</p>
+                </div>
                 
                 <div class="role-switcher">
-                    <span>Switch View:</span>
                     <button onclick="switchPortal('admin')">Admin</button>
                     <button onclick="switchPortal('teacher')">Teacher</button>
                     <button onclick="switchPortal('student')">Student</button>
-                    <button onclick="switchPortal('parent')">Parent</button>
                 </div>
 
                 <div class="user-pill" id="user-display">Admin User</div>
             </header>
             
-            <div class="dashboard-grid">
-                <div class="stat-card">
-                    <h3 id="stat-1-label">Total Students</h3>
-                    <p id="stat-1-value">1,200</p>
+            <div class="dashboard-grid" id="main-grid">
                 </div>
-                <div class="stat-card">
-                    <h3 id="stat-2-label">Active Classes</h3>
-                    <p id="stat-2-value">45</p>
-                </div>
-            </div>
         </main>
     </div>
 
     <script>
         function switchPortal(role) {
-            // 1. Change the Body Class (This triggers the CSS Magic colors)
+            // Update Theme
             document.body.className = 'theme-' + role;
-
-            // 2. Update the Text Headers
-            const title = document.getElementById('page-title');
-            const userPill = document.getElementById('user-display');
             
-            title.innerText = role.charAt(0).toUpperCase() + role.slice(1) + " Dashboard";
-            userPill.innerText = role.charAt(0).toUpperCase() + role.slice(1) + " User";
+            // Update Header Text
+            document.getElementById('page-title').innerText = role.charAt(0).toUpperCase() + role.slice(1) + " Dashboard";
+            document.getElementById('user-display').innerText = role.charAt(0).toUpperCase() + role.slice(1) + " User";
 
-            // 3. Simple Logic to show how data might change per role
-            if(role === 'student') {
-                document.getElementById('stat-1-label').innerText = "GPA";
-                document.getElementById('stat-1-value').innerText = "3.8";
-                document.getElementById('stat-2-label').innerText = "Assignments Due";
-                document.getElementById('stat-2-value').innerText = "4";
-            } else if(role === 'admin') {
-                document.getElementById('stat-1-label').innerText = "Total Students";
-                document.getElementById('stat-1-value').innerText = "1,200";
-                document.getElementById('stat-2-label').innerText = "Active Classes";
-                document.getElementById('stat-2-value').innerText = "45";
+            // Update Dashboard Content based on Role
+            const grid = document.getElementById('main-grid');
+            if(role === 'admin') {
+                grid.innerHTML = `
+                    <div class="stat-card"><h3>Total Students</h3><p>1,240</p></div>
+                    <div class="stat-card"><h3>Total Teachers</h3><p>38</p></div>
+                    <div class="stat-card"><h3>Fees Collected</h3><p>85%</p></div>`;
+            } else if(role === 'teacher') {
+                grid.innerHTML = `
+                    <div class="stat-card"><h3>My Classes</h3><p>6</p></div>
+                    <div class="stat-card"><h3>Avg Attendance</h3><p>92%</p></div>
+                    <div class="stat-card"><h3>Pending Grades</h3><p>12</p></div>`;
+            } else if(role === 'student') {
+                grid.innerHTML = `
+                    <div class="stat-card"><h3>My GPA</h3><p>3.8</p></div>
+                    <div class="stat-card"><h3>Attendance</h3><p>98%</p></div>
+                    <div class="stat-card"><h3>Homework</h3><p>2 Due</p></div>`;
             }
         }
+        // Initialize Admin view on load
+        switchPortal('admin');
     </script>
 </body>
 </html>
