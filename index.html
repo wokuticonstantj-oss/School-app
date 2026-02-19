@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulanga Progressive SS - Portal</title>
+    <title>Bulanga Progressive SS Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-admin">
@@ -14,26 +14,20 @@
             <div class="logo">🏫 SchoolOS</div>
             <nav class="nav-menu">
                 <a href="#" class="nav-item active">📊 Dashboard</a>
-                
                 <div class="role-section admin-only">
                     <p class="menu-label">ADMIN TOOLS</p>
                     <a href="#" class="nav-item">👥 Manage Users</a>
                     <a href="#" class="nav-item">💰 Finance</a>
-                    <a href="#" class="nav-item">⚙️ Settings</a>
                 </div>
-
                 <div class="role-section teacher-only">
                     <p class="menu-label">CLASSROOM</p>
                     <a href="#" class="nav-item">📝 Attendance</a>
                     <a href="#" class="nav-item">📚 Lesson Plans</a>
-                    <a href="#" class="nav-item">✍️ Grading</a>
                 </div>
-
                 <div class="role-section student-only">
                     <p class="menu-label">LEARNING</p>
                     <a href="#" class="nav-item">📖 My Courses</a>
                     <a href="#" class="nav-item">📅 Timetable</a>
-                    <a href="#" class="nav-item">🏆 Results</a>
                 </div>
             </nav>
         </aside>
@@ -42,52 +36,71 @@
             <header class="top-bar">
                 <div>
                     <h2 id="page-title">Admin Dashboard</h2>
-                    <p id="school-name">Bulanga Progressive Secondary School</p>
+                    <p>Bulanga Progressive Secondary School</p>
                 </div>
-                
                 <div class="role-switcher">
                     <button onclick="switchPortal('admin')">Admin</button>
                     <button onclick="switchPortal('teacher')">Teacher</button>
                     <button onclick="switchPortal('student')">Student</button>
                 </div>
-
                 <div class="user-pill" id="user-display">Admin User</div>
             </header>
             
-            <div class="dashboard-grid" id="main-grid">
+            <div class="dashboard-layout">
+                <div class="main-stats">
+                    <div class="dashboard-grid" id="main-grid">
+                        </div>
                 </div>
+
+                <aside class="event-sidebar">
+                    <h3>📢 Upcoming Events</h3>
+                    <div class="event-item">
+                        <span class="event-date">FEB 25, 2026</span>
+                        <p class="event-title">Inter-House Sports Gala</p>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">MAR 02, 2026</span>
+                        <p class="event-title">Mid-Term Examinations Start</p>
+                    </div>
+                    <div class="event-item">
+                        <span class="event-date">MAR 15, 2026</span>
+                        <p class="event-title">General Parents Meeting</p>
+                    </div>
+                </aside>
+            </div>
         </main>
     </div>
 
     <script>
         function switchPortal(role) {
-            // Update Theme
             document.body.className = 'theme-' + role;
-            
-            // Update Header Text
             document.getElementById('page-title').innerText = role.charAt(0).toUpperCase() + role.slice(1) + " Dashboard";
             document.getElementById('user-display').innerText = role.charAt(0).toUpperCase() + role.slice(1) + " User";
 
-            // Update Dashboard Content based on Role
             const grid = document.getElementById('main-grid');
-            if(role === 'admin') {
+            
+            if(role === 'teacher') {
                 grid.innerHTML = `
-                    <div class="stat-card"><h3>Total Students</h3><p>1,240</p></div>
-                    <div class="stat-card"><h3>Total Teachers</h3><p>38</p></div>
-                    <div class="stat-card"><h3>Fees Collected</h3><p>85%</p></div>`;
-            } else if(role === 'teacher') {
-                grid.innerHTML = `
-                    <div class="stat-card"><h3>My Classes</h3><p>6</p></div>
-                    <div class="stat-card"><h3>Avg Attendance</h3><p>92%</p></div>
-                    <div class="stat-card"><h3>Pending Grades</h3><p>12</p></div>`;
+                    <div class="stat-card full-width">
+                        <h3>Daily Attendance - Senior 4</h3>
+                        <table class="data-table">
+                            <thead><tr><th>Name</th><th>Status</th><th>Action</th></tr></thead>
+                            <tbody>
+                                <tr><td>Musoke John</td><td><span class="badge present">Present</span></td><td><button class="btn-sm">Toggle</button></td></tr>
+                                <tr><td>Nantongo Sarah</td><td><span class="badge absent">Absent</span></td><td><button class="btn-sm">Toggle</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>`;
             } else if(role === 'student') {
                 grid.innerHTML = `
                     <div class="stat-card"><h3>My GPA</h3><p>3.8</p></div>
-                    <div class="stat-card"><h3>Attendance</h3><p>98%</p></div>
-                    <div class="stat-card"><h3>Homework</h3><p>2 Due</p></div>`;
+                    <div class="stat-card"><h3>Assignments</h3><p>3 Pending</p></div>`;
+            } else {
+                grid.innerHTML = `
+                    <div class="stat-card"><h3>Total Students</h3><p>1,240</p></div>
+                    <div class="stat-card"><h3>Fees Progress</h3><p>75%</p></div>`;
             }
         }
-        // Initialize Admin view on load
         switchPortal('admin');
     </script>
 </body>
